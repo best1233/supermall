@@ -5,3 +5,20 @@ $color-white: #fff;
 
 $font-size: 14px;
 $line-height: 1.5;
+
+@mixin text-ellipsis {
+	overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin size($width,$height) {
+  width:$width;
+  height:$height;
+}
+
+@mixin square($width) {
+  width:$width;
+  height:$width;
+}
+

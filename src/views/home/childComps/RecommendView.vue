@@ -34,8 +34,7 @@ export default {
   text-align: center;
 
   img {
-    width: 70px;
-    height: 70px;
+    @include square(70px);
     margin-bottom: 10px;
   }
 }

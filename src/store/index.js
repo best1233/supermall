@@ -1,15 +1,19 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+// 1.安装插件
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const debug = process.env.NODE_ENV !== 'production';
+
+// 2.创建store对象
+const store = new Vuex.Store({
   state: {
+    
   },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
-})
+  mutations: {},
+  actions: {},
+  strict: debug
+});
+
+export default store;

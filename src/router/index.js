@@ -29,27 +29,39 @@ const routes = [
     path: "/home",
     name: "Home",
     component: Home,
+    meta: {
+      index: 1
+    }
   },
   {
     path: "/category",
     name: "Category",
     component: Category,
+    meta: {
+      index: 2
+    }
   },
   {
     path: "/shopcart",
     name: "Cart",
     component: Cart,
+    meta: {
+      index: 3
+    }
   },
   {
     path: "/profile",
     name: "Profile",
     component: Profile,
+    meta: {
+      index: 4
+    }
   },
   {
     path: "/detail/:id",
     name: "Detail",
     component: Detail,
-    props: true,
+    props: true
   },
 ];
 

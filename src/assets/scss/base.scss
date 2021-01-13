@@ -15,10 +15,20 @@ body {
   /* rem vw/vh */
   width: 100vw;
 }
+
 a {
   color: $color-text;
   text-decoration: none;
 }
+
+img {
+  vertical-align: middle;
+}
+
+li {
+  list-style: none;
+}
+
 .clearfix::after {
   clear: both;
   content: '';
@@ -27,15 +37,19 @@ a {
   height: 0;
   visibility: hidden;
 }
+
 .clearfix {
   zoom: 1;
 }
+
 .left {
   float: left;
 }
+
 .right {
   float: right;
 }
+
 .arrow-right {
   border-top: 1px solid #999;
   border-left: 1px solid #999;
@@ -47,10 +61,13 @@ a {
   margin-left: .1rem;
 }
 
-.text-ellipsis {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+// 过渡相关
+.fade-leave-active,
+.fade-enter-active {
+  transition: all 0.5s;
 }
-// 混合  @include text-ellipsis
-// 继承  @extend .left; 
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}

@@ -18,6 +18,7 @@ module.exports = {
     loaderOptions: {
       // 使用scss全局变量
       scss: {
+        // sass-loader 版本8
         prependData: `@import "~assets/scss/variables.scss";`,
       },
     },

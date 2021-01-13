@@ -4,113 +4,26 @@
     <NavBar class="home-nav">
       <template #center>购物街</template>
     </NavBar>
-    <!-- 轮播图 -->
-    <HomeSwiper :banners="banners" />
-    <RecommendView :recommends="recommends" />
-    <FeatureView />
-    <TabControl class="tab-control" :titles="titles" @tabClick="tabClick" />
-    <ul>
-      <li>列表1</li>
-      <li>列表2</li>
-      <li>列表3</li>
-      <li>列表4</li>
-      <li>列表5</li>
-      <li>列表6</li>
-      <li>列表7</li>
-      <li>列表8</li>
-      <li>列表9</li>
-      <li>列表10</li>
-      <li>列表11</li>
-      <li>列表12</li>
-      <li>列表13</li>
-      <li>列表14</li>
-      <li>列表15</li>
-      <li>列表16</li>
-      <li>列表17</li>
-      <li>列表18</li>
-      <li>列表19</li>
-      <li>列表20</li>
-      <li>列表21</li>
-      <li>列表22</li>
-      <li>列表23</li>
-      <li>列表24</li>
-      <li>列表25</li>
-      <li>列表26</li>
-      <li>列表27</li>
-      <li>列表28</li>
-      <li>列表29</li>
-      <li>列表30</li>
-      <li>列表31</li>
-      <li>列表32</li>
-      <li>列表33</li>
-      <li>列表34</li>
-      <li>列表35</li>
-      <li>列表36</li>
-      <li>列表37</li>
-      <li>列表38</li>
-      <li>列表39</li>
-      <li>列表40</li>
-      <li>列表41</li>
-      <li>列表42</li>
-      <li>列表43</li>
-      <li>列表44</li>
-      <li>列表45</li>
-      <li>列表46</li>
-      <li>列表47</li>
-      <li>列表48</li>
-      <li>列表49</li>
-      <li>列表50</li>
-      <li>列表51</li>
-      <li>列表52</li>
-      <li>列表53</li>
-      <li>列表54</li>
-      <li>列表55</li>
-      <li>列表56</li>
-      <li>列表57</li>
-      <li>列表58</li>
-      <li>列表59</li>
-      <li>列表60</li>
-      <li>列表61</li>
-      <li>列表62</li>
-      <li>列表63</li>
-      <li>列表64</li>
-      <li>列表65</li>
-      <li>列表66</li>
-      <li>列表67</li>
-      <li>列表68</li>
-      <li>列表69</li>
-      <li>列表70</li>
-      <li>列表71</li>
-      <li>列表72</li>
-      <li>列表73</li>
-      <li>列表74</li>
-      <li>列表75</li>
-      <li>列表76</li>
-      <li>列表77</li>
-      <li>列表78</li>
-      <li>列表79</li>
-      <li>列表80</li>
-      <li>列表81</li>
-      <li>列表82</li>
-      <li>列表83</li>
-      <li>列表84</li>
-      <li>列表85</li>
-      <li>列表86</li>
-      <li>列表87</li>
-      <li>列表88</li>
-      <li>列表89</li>
-      <li>列表90</li>
-      <li>列表91</li>
-      <li>列表92</li>
-      <li>列表93</li>
-      <li>列表94</li>
-      <li>列表95</li>
-      <li>列表96</li>
-      <li>列表97</li>
-      <li>列表98</li>
-      <li>列表99</li>
-      <li>列表100</li>
-    </ul>
+    <Scroll
+      class="wrapper"
+      ref="scroll"
+      :probeType="3"
+      @scroll="contentScroll"
+      :pullUpLoad="true"
+      @pullingUp="loadMore"
+    >
+      <!-- 轮播图 -->
+      <HomeSwiper :banners="banners" />
+      <!-- 推荐 -->
+      <RecommendView :recommends="recommends" />
+      <!-- 本周流行 -->
+      <FeatureView />
+      <TabControl class="tab-control" :titles="titles" @tabClick="tabClick" />
+      <!-- 商品列表 -->
+      <GoodsList :goods="showGoods" />
+    </Scroll>
+    <!-- 回到顶部 -->
+    <BackTop @click.native="backTop" v-show="isShowBackTop" />
   </div>
 </template>
 
@@ -121,9 +34,12 @@ import FeatureView from "./childComps/FeatureView";
 
 import NavBar from "components/common/navbar/NavBar";
 import TabControl from "components/content/tabControl/TabControl";
+import GoodsList from "components/content/goods/GoodsList";
+import Scroll from "components/common/scroll/Scroll";
+import BackTop from "components/content/backTop/BackTop";
 
-import { getHomeMultiData } from "services/home";
-import { POP, NEWS, SELL } from "common/const";
+import { getHomeMultiData, getHomeGoods } from "services/home";
+import { POP, NEW, SELL, BACK_POSITION } from "common/const";
 export default {
   name: "Home",
   components: {
@@ -132,7 +48,10 @@ export default {
     FeatureView,
 
     NavBar,
-    TabControl
+    TabControl,
+    GoodsList,
+    Scroll,
+    BackTop
   },
   data() {
     return {
@@ -140,28 +59,78 @@ export default {
       recommends: [],
       titles: ["流行", "新款", "精选"],
       goods: {
-        POP: { page: 0, list: [] },
-        NEWS: { page: 0, list: [] },
-        SELL: { page: 0, list: [] }
-      }
+        // [POP] es6属性名表达式,与简洁表示法不能同时使用
+        [POP]: { page: 0, list: [] },
+        [NEW]: { page: 0, list: [] },
+        [SELL]: { page: 0, list: [] }
+      },
+      currentType: POP,
+      isShowBackTop: false
     };
   },
-  async created() {
+  created() {
     // 1.请求多个数据
-    const resp = await getHomeMultiData();
-    console.log(resp);
-    this.banners = resp.banner.list;
-    this.recommends = resp.recommend.list;
+    this.getHomeMultiData();
+    // 2.请求商品数据
+    this.getHomeGoods(POP);
+    this.getHomeGoods(NEW);
+    this.getHomeGoods(SELL);
+  },
+  computed: {
+    // 展示当前选中的项
+    showGoods() {
+      return this.goods[this.currentType].list;
+    }
   },
   methods: {
-    tabClick(index) {}
+    /**
+     * 事件监听相关的方法
+     */
+    tabClick(index) {
+      switch (index) {
+        case 0:
+          this.currentType = POP;
+          break;
+        case 1:
+          this.currentType = NEW;
+          break;
+        case 2:
+          this.currentType = SELL;
+          break;
+      }
+    },
+    // 回到顶部
+    backTop() {
+      this.$refs.scroll.scrollTo(0, 0);
+    },
+    contentScroll(position) {
+      this.isShowBackTop = -position.y > BACK_POSITION;
+    },
+    loadMore() {
+      console.log('上拉加载更多');
+    },
+    /**
+     * 网络请求相关的方法
+     */
+    async getHomeMultiData() {
+      const res = await getHomeMultiData();
+      this.banners = res.banner.list;
+      this.recommends = res.recommend.list;
+    },
+    async getHomeGoods(type) {
+      const page = this.goods[type].page + 1;
+      const goods = await getHomeGoods(type, 1);
+      this.goods[type].list.push(...goods);
+      this.goods[type].page += 1;
+    }
   }
 };
 </script>
 
 <style scoped lang="scss">
 #home {
-  padding-top: 44px;
+  height: 100vh;
+  position: relative;
 }
 .home-nav {
   background-color: $color-tint;
@@ -173,8 +142,23 @@ export default {
   left: 0;
   z-index: 9;
 }
+.wrapper {
+  position: absolute;
+  top:44px;
+  left:0;
+  right:0;
+  bottom:49px;
+  overflow: hidden;
+}
+// .wrapper {
+//   height: calc(100% - 93px);
+//   overflow: hidden;
+//   margin-top: 44px;
+// }
+
 .tab-control {
   position: sticky;
   top: 44px;
+  z-index: 10;
 }
 </style>
