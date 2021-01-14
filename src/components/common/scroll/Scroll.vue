@@ -8,7 +8,7 @@
 
 <script>
 import BScroll from "@better-scroll/core"; // 基础内容滚动
-import PullUp from '@better-scroll/pull-up'
+import PullUp from '@better-scroll/pull-up' // 用于上拉加载更多
 BScroll.use(PullUp);
 export default {
   name: "Scroll",
@@ -58,12 +58,19 @@ export default {
       default: 20
     }
   },
+  // 必须在mounted中初始化,在created生命周期函数中获取不到dom元素
   mounted() {
     // 保证在DOM渲染完毕后初始化better-scroll
     setTimeout(() => {
       this._initScroll();
     }, 20);
   },
+  /**
+   * Better-scroll可滚动的高度是由内部的scrollerHeight属性决定的，
+   * 而scrollerHeight属性是根据放在Better-Scroll中的content中的子组件的高度决定
+   * 
+   * console.log(this.scroll.scrollerHeight); 
+   */
   methods: {
     // better-scroll的初始化
     _initScroll() {
@@ -79,7 +86,7 @@ export default {
       });
 
       // 2.监听滚动的位置
-      if (this.probeType) {
+      if (this.probeType === 2 || this.probeType === 3) {
         this.scroll.on("scroll", position => {
           this.$emit("scroll", position);
         });
@@ -88,19 +95,26 @@ export default {
       // 3.监听上拉事件
       if (this.pullUpLoad) {
         this.scroll.on("pullingUp", () => {
+          console.log('监听到滚动到底部~');
           this.$emit('pullingUp');
         });
       }
     },
+    // 代理better-scroll的scrollTo方法
     scrollTo(x, y, time = 500) {
-      this.scroll.scrollTo(x, y, time);
+      this.scroll && this.scroll.scrollTo(x, y, time);
     },
+    // 代理better-scroll的finishPullUp方法
     finishPullUp() {
-      this.scroll.finishPullUp();
+      this.scroll && this.scroll.finishPullUp();
     },
     // 代理better-scroll的refresh方法
     refresh() {
+      console.log('refresh~');
       this.scroll && this.scroll.refresh();
+    },
+    getScrollY() {
+      return this.scroll ? this.scroll.y : 0;
     }
   },
   watch: {
@@ -114,4 +128,4 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped></style>

@@ -25,13 +25,13 @@ export default {
 .recommend {
   display: flex;
   padding: 10px 0 20px;
-  border-bottom: 10px solid #eee;
+  border-bottom: 10px solid $border-light;
 }
 
 .recommend-item {
   flex: 1;
-  font-size: 12px;
   text-align: center;
+  font-size: 12px;
 
   img {
     @include square(70px);

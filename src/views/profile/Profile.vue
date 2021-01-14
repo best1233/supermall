@@ -42,19 +42,21 @@ export default {
 
 <style scoped lang="scss">
 #profile {
-  background-color: #f2f2f2;
-  position: absolute;
-  top:0;
-  left:0;
-  right:0;
-  bottom:49px;
+  // position: absolute;
+  // top:0;
+  // left:0;
+  // right:0;
+  // bottom:49px;
+  background-color: $bg-light;
+  
+  .order-list {
+    margin-top: 12px;
+  }
 }
 .nav-bar {
-  background-color: $color-tint;
-  color: $color-white;
   font-weight: 700;
+  color: $text-white;
+  background-color: $bg-tint;
 }
-.order-list {
-  margin-top: 12px;
-}
+
 </style>

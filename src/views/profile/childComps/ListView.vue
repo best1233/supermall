@@ -1,7 +1,7 @@
 <template>
   <div class="order">
     <div class="order-item" v-for="item in listData" :key="item.url">
-      <img :src="showUrl(item)" alt="" />
+      <img :src="iconURL(item)" alt="" />
       <div class="info">{{ item.info }}</div>
     </div>
   </div>
@@ -18,7 +18,7 @@ export default {
 	},
 	methods: {
     // 拼接完整的路径
-		showUrl(item) {
+		iconURL(item) {
 			return require(`assets/img/profile/${item.url}`)
 		}
 	}
@@ -27,14 +27,14 @@ export default {
 
 <style scoped lang="scss">
 .order {
-  background-color: $color-white;
   font-size: 15px;
-  color: #333;
+  color: $text-333;
+  background-color: $bg-white;
 
   .order-item {
+		position: relative;
     height: 44px;
 		line-height: 44px;
-		position: relative;
 
     img {
 			position: absolute;
@@ -45,10 +45,14 @@ export default {
     }
 
     .info {
-      margin-left: 40px;
-      border-bottom: 1px solid rgba(100, 100, 100, 0.1);
       padding-left: 5px;
+      border-bottom: 1px solid $border-grey;
+      margin-left: 40px;
     }
+
+    &:last-of-type .info {
+      border-bottom:0;
+    } 
   }
 }
 </style>

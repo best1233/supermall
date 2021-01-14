@@ -28,16 +28,16 @@ export default {
   .account-item {
     width:100%;
     padding: 18px;
-    font-size: 13px;
     margin-right:1px;
-    color: $color-text;
+    font-size: 13px;
     text-align: center;
-    background-color: $color-white;
+    color: $text-grey;
+    background-color: $bg-white;
 
     .balance {
       font-size:24px;
       font-weight:700;
-      color:#ff5f3e;
+      color:$text-orange;
     }
     .account-info {
       margin-top:6px;

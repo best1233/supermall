@@ -1,9 +1,40 @@
-$color-text: #666;
-$color-high-text: #ff5777;
-$color-tint: #ff8198;
-$color-white: #fff;
+$main-color:#ff5777;
 
-$font-size: 14px;
+// 背景相关
+$bg-tint: #ff8198;
+$bg-red: #f13e3a;
+$bg-pink:#f69;
+$bg-yellow:#ffe817;
+$bg-green: #5ea732;
+$bg-grey: #a3a3a5;
+$bg-white: #fff;
+$bg-shop: #f2f5f8;
+$bg-light: #f2f2f2;
+$bg-lighter: #f6f6f6;
+$bg-333: #333;
+
+// 文本相关
+$text-grey: #666;
+$text-red: #f13e3a;
+$text-green: #5ea732;
+$text-orange: #ff5f3e;
+$text-pink: #eb4868;
+$text-white: #fff;
+$text-222: #222;
+$text-333: #333;
+$text-777: #777;
+$text-999: #999;
+
+// 边框相关
+$border-black: rgba(0, 0, 0, 0.1);
+$border-grey:rgba(100, 100, 100, 0.1);
+$border-light: #f2f2f2;
+$border-lighter: #f2f5f8;
+$border-999: #999;
+
+// 字体相关
+// $fs-lg: 16px;
+$fs14: 14px;
 $line-height: 1.5;
 
 @mixin text-ellipsis {

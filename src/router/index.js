@@ -58,7 +58,7 @@ const routes = [
     }
   },
   {
-    path: "/detail/:id",
+    path: "/detail/:iid",
     name: "Detail",
     component: Detail,
     props: true

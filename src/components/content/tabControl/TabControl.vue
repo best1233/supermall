@@ -42,7 +42,7 @@ export default {
 	line-height: 40px;
 	font-size:15px;
   text-align: center;
-  background-color: $color-white;
+  background-color: $bg-white;
 
   .tab-control-item {
     flex: 1;
@@ -52,8 +52,8 @@ export default {
     }
 
     &.active span {
-      color: $color-high-text;
-      border-bottom: 3px solid $color-high-text;
+      color: $main-color;
+      border-bottom: 3px solid $main-color;
     }
   }
 }

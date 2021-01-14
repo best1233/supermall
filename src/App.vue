@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <transition name="fade">
-      <keep-alive>
+    <transition>
+      <keep-alive exclude="Detail">
         <router-view />
       </keep-alive>
     </transition>

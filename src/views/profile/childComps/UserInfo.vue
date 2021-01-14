@@ -25,26 +25,26 @@ export default {
 
 <style scoped lang="scss">
 .user-info {
-  background-color: $color-tint;
-  padding: 15px;
-  margin-top: -5px;
 	display: flex;
 	justify-content: space-between;
+  padding: 15px;
+  margin-top: -5px;
+  background-color: $bg-tint;
 
   .privateImage {
     @include square(60px);
-    background-color: $color-white;
     border-radius: 30px;
+    background-color: $bg-white;
   }
   .login-info {
 		position: relative;
 		left: -40px;
-    color: $color-white;
 		margin-top: 10px;
+    color: $text-white;
 	
     .phone {
-			display: flex;
 			position: relative;
+			display: flex;
 			margin-top:5px;
 
       .icon-mobile {
@@ -55,8 +55,8 @@ export default {
 			}
 			
 			span {
+        padding-left:13px;
 				font-size:13px;
-				padding-left:13px;
 			}
     }
 	}
