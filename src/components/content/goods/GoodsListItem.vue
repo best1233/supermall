@@ -1,6 +1,7 @@
 <template>
   <div class="goods-item" @click="itemClick">
-    <img :src="showImage" alt="" @load="imageLoad" />
+    <!-- <img :src="showImage" alt="" @load="imageLoad" /> -->
+    <img v-lazy="showImage" alt="" @load="imageLoad">
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
       <span class="price">{{ goodsItem.price }}</span>
@@ -22,13 +23,20 @@ export default {
     // 因为this.goodsItem.show如果不存在，那么访问一个undefined上的一个属性会报错，
     // 所以需要将this.goodsItem.show.img放到最后
     showImage() {
-      return this.goodsItem.image || this.goodsItem.show.img;
+      return this.goodsItem.img || this.goodsItem.image || this.goodsItem.show.img;
     }
   },
   methods: {
     // 监听图片加载完成
     imageLoad() {
       this.$bus.$emit('itemImageLoad');
+
+     /*  if (this.$route.path.indexOf('/home') !== -1) {
+        this.$bus.$emit('homeItemImageLoad');
+      } else if (this.$route.path.indexOf('/detail') !== -1) {
+        this.$bus.$emit('detailItemImageLoad');
+      } */
+       
     },
     itemClick() {
       // 如果是详情页内的推荐图片，不跳转

@@ -33,3 +33,12 @@ export function formatDate(date, fmt) {
 function padLeftZero (str) {
   return ('00' + str).substr(str.length);
 };
+
+/**
+ * yyyy 表示四位数年
+ * MM   月份
+ * dd   日期
+ * hh   小时 (12小时制)  HH (24小时制 )
+ * mm   分钟
+ * ss   秒钟
+ */

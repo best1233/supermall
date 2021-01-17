@@ -8,18 +8,13 @@
         <span>暂无绑定手机号</span>
       </div>
     </div>
-    <img class="right-arrow" @click="arrowClick" src="~assets/img/common/arrow-left.svg" alt="" />
+    <img class="right-arrow" src="~assets/img/common/arrow-left.svg" alt="" />
   </div>
 </template>
 
 <script>
 export default {
-  name: "UserInfo",
-  methods: {
-    arrowClick() {
-      this.$router.replace('/home');
-    }
-  }
+  name: "UserInfo"
 };
 </script>
 

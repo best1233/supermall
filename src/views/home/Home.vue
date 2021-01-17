@@ -43,11 +43,11 @@ import NavBar from "components/common/navbar/NavBar";
 import TabControl from "components/content/tabControl/TabControl";
 import GoodsList from "components/content/goods/GoodsList";
 import Scroll from "components/common/scroll/Scroll";
-import BackTop from "components/content/backTop/BackTop";
 
 import { getHomeMultiData, getHomeGoods } from "services/home";
-import { POP, NEW, SELL, BACK_POSITION } from "common/const";
+import { POP, NEW, SELL } from "common/const";
 import { debounce } from "common/utils";
+import { itemImgListenerMixin, backTopMixin } from "common/mixin";
 
 export default {
   name: "Home",
@@ -59,9 +59,9 @@ export default {
     NavBar,
     TabControl,
     GoodsList,
-    Scroll,
-    BackTop
+    Scroll
   },
+  mixins: [itemImgListenerMixin, backTopMixin], // 混入
   data() {
     return {
       banners: [],
@@ -74,7 +74,6 @@ export default {
         [SELL]: { page: 0, list: [] }
       },
       currentType: POP,
-      isShowBackTop: false,
       tabOffsetTop: 0,
       isTabFixed: false,
       saveY: 0
@@ -89,6 +88,9 @@ export default {
   deactivated() {
     // 1.当前页面离开时，保存滚动的y值
     this.saveY = this.$refs.scroll.getScrollY();
+    
+    // 2.取消全局事件的监听，$bus.$off('事件名称',函数)
+    this.$bus.$off('itemImageLoad', this.itemImgListener);
   },
   created() {
     // 1.请求多个数据
@@ -98,13 +100,23 @@ export default {
     this.getHomeGoods(NEW);
     this.getHomeGoods(SELL);
   },
-  mounted() {
-    // 1.图片加载完成的事件监听,进行refresh
-    const newRefresh = debounce(this.$refs.scroll.refresh, 50); //防抖处理
-    this.$bus.$on("itemImageLoad", () => {
-      newRefresh();
-    });
-  },
+  // mounted() {
+  //   // 这个地方img标签确实被挂载，但是其中的图片还没有占据高度
+    
+  //   // 1.对刷新函数进行防抖操作
+  //   const newRefresh = debounce(this.$refs.scroll.refresh, 100);
+
+  //   // 2.对监听的事件进行保存
+  //   this.itemImgListener = () => {
+  //     newRefresh();
+  //   }
+  //   // 3.监听图片加载完成，执行refresh
+  //   this.$bus.$on("itemImageLoad", this.itemImgListener);
+
+  //   // this.$bus.$on("itemImageLoad", () => {
+  //   //   newRefresh();
+  //   // });
+  // },
   computed: {
     // 展示当前选中的项
     showGoods() {
@@ -131,13 +143,9 @@ export default {
       this.$refs.tabControl1.currentIndex = index;
       this.$refs.tabControl2.currentIndex = index;
     },
-    // 回到顶部
-    backTop() {
-      this.$refs.scroll.scrollTo(0, 0);
-    },
     contentScroll(position) {
       // 1.判断BackTop是否显示
-      this.isShowBackTop = (-position.y) > BACK_POSITION;
+      this.listenShowBackTop(position);
 
       // 2.决定tabControl是否吸顶(position: fixed)
       this.isTabFixed = (-position.y) > this.tabOffsetTop;

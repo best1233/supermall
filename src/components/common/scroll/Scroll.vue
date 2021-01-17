@@ -110,7 +110,7 @@ export default {
     },
     // 代理better-scroll的refresh方法
     refresh() {
-      console.log('refresh~');
+      // console.log('refresh~');
       this.scroll && this.scroll.refresh();
     },
     getScrollY() {

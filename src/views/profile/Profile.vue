@@ -1,6 +1,6 @@
 <template>
   <div id="profile">
-    <NavBar><template #center>我的商城</template></NavBar>
+    <NavBar><template #center>个人中心</template></NavBar>
     <!-- 用户信息 -->
     <UserInfo />
     <!-- 账户信息 -->
@@ -11,18 +11,19 @@
 </template>
 
 <script>
-import NavBar from "components/common/navbar/NavBar";
 import UserInfo from "./childComps/UserInfo";
 import AccountInfo from "./childComps/AccountInfo";
 import ListView from "./childComps/ListView";
 
+import NavBar from "components/common/navbar/NavBar";
 export default {
   name: "Profile",
   components: {
-    NavBar,
     UserInfo,
     AccountInfo,
-    ListView
+    ListView,
+    
+    NavBar
   },
   data() {
     return {
@@ -54,9 +55,7 @@ export default {
   }
 }
 .nav-bar {
-  font-weight: 700;
   color: $text-white;
   background-color: $bg-tint;
 }
-
 </style>

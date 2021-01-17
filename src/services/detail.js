@@ -31,6 +31,7 @@ export async function getRecommend() {
 export class Goods {
 	constructor(itemInfo,columns,services) {
 		this.title = itemInfo.title;
+		this.desc = itemInfo.desc; // 商品描述，用于购物车展示
 		this.oldPrice = itemInfo.oldPrice; // 原价
 		this.newPrice = itemInfo.price; // 折扣价
 		this.realPrice = itemInfo.lowNowPrice; // 最低价格，没有单位，用于购物车计算
@@ -53,17 +54,6 @@ export class Shop {
 		this.score = shopInfo.score;
 	}
 }
-/**
- * 商品详情信息类
- */
-export class DetailInfo {
-	constructor(detailInfo) {
-		this.desc = detailInfo.desc;
-		this.key = detailInfo.detailImage[0].key;
-		this.list = detailInfo.detailImage[0].list;
-	}
-}
-
 /**
  * 商品参数信息类
  */

@@ -5,9 +5,15 @@
 			<div class="desc">{{ goodsInfo.desc }}</div>
 			<div class="end"></div>
 		</div>
-		<div class="info-key">{{ goodsInfo.key }}</div>
-		<div class="info-list">
-			<img :src="item" alt="" v-for="item in goodsInfo.list" :key="item" @load="imgLoad">
+		<!-- 详情图片展示 -->
+		<div v-for="(item,index) in goodsInfo.detailImage" :key="index">
+			<!-- 如果每一项下面没有图片，不展示 -->
+			<template v-if="item.list">
+				<div class="info-key">{{ item.key }}</div>
+				<div class="info-list">
+					<img :src="list" alt="" v-for="list in item.list" :key="list" @load="imgLoad">
+				</div>
+			</template>
 		</div>
 	</div>
 </template>
@@ -21,26 +27,30 @@
 				default: () => {}
 			}
 		},
-		data() {
-			return {
-				counter: 0,
-				imagesLength: 0
-			}
-		},
+		// data() {
+		// 	return {
+		// 		counter: 0,
+		// 		imagesLength: 0
+		// 	}
+		// },
 		methods: {
-			// 判断所有的图片都加载完了，那么进行一次回调就可以了
+			// 详情页的图片每加载完一张，抛出一次事件
 			imgLoad() {
-				if (++this.counter === this.imagesLength) {
-					this.$emit('detailImageLoad');
-				}
+				this.$emit('detailImageLoad');
 			}
+			// 判断所有的图片都加载完了，那么进行一次回调就可以了
+			// imgLoad() {
+			// 	if (++this.counter === this.imagesLength) {
+			// 		this.$emit('detailImageLoad');
+			// 	}
+			// }
 		},
-		watch: {
+		// watch: {
 			// 监听goodsInfo的变化,将imagesLength赋值为图片的总个数，避免调用多次
-			goodsInfo() {
-				this.imagesLength = this.goodsInfo.list.length;
-			}
-		}
+			// goodsInfo() {
+			// 	this.imagesLength = this.goodsInfo.detailImage.list.length;
+			// }
+		// }
 	}
 </script>
 
