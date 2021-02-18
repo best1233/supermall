@@ -4,12 +4,8 @@
       <CartListItem
         v-for="(item, index) in cartList"
         :product="item"
-        :isTouchMove="item.isTouchMove"
         :index="index"
         :key="index"
-        @touchstart.native="touchStart($event, index)"
-        @touchmove.native="touchMove($event, index)"
-        @touchend.native="touchEnd(index)"
       />
     </Scroll>
   </div>
@@ -32,48 +28,53 @@ export default {
   activated() {
     this.$refs.scroll.refresh();
   },
-  methods: {
-    ...mapMutations(['cartTouchStart','cartTouchMove','cartTouchEnd']),
-    touchStart(event,index) {
-      this.cartTouchStart({
-        event,
-        index
-      });
-    },
-    touchMove(event,index) {
-      this.cartTouchMove({
-        event,
-        index
-      });
-    },
-    touchEnd(index) {
-      this.cartTouchEnd(index);
-      this.$forceUpdate();
-    }
-    // 购物车左滑事件
-    // touchStart(e, idx) {
-    //   this.cartList.forEach(item => {  
-    //     if (item.isTouchMove) {
-    //       item.isTouchMove = false;
-    //     }
-    //   });
-    //   this.cartList[idx].startx = e.targetTouches[0].clientX;
-    //   this.cartList[idx].endx = 0;
-    // },
-    // touchMove(e, idx) {
-    //   this.cartList[idx].endx = e.targetTouches[0].clientX;
-    // },
-    // touchEnd(idx) {
-    //   //结束的坐标点大于开始的坐标点，认为用户已经从左往右滑动了屏幕
-    //   if (this.cartList[idx].endx == 0) return;
-    //   if (this.cartList[idx].startx > this.cartList[idx].endx) {
-    //     this.cartList[idx].isTouchMove = true;
-    //   } else {
-    //     this.cartList[idx].isTouchMove = false;
-    //   }
-    //   this.$forceUpdate(); //强制刷新
-    // }
-  }
+  // methods: {
+  //   :isTouchMove="item.isTouchMove"
+  //   @touchstart.native="touchStart($event, index)"
+  //   @touchmove.native="touchMove($event, index)"
+  //   @touchend.native="touchEnd(index)"
+
+  //   ...mapMutations(['cartTouchStart','cartTouchMove','cartTouchEnd']),
+  //   touchStart(event,index) {
+  //     this.cartTouchStart({
+  //       event,
+  //       index
+  //     });
+  //   },
+  //   touchMove(event,index) {
+  //     this.cartTouchMove({
+  //       event,
+  //       index
+  //     });
+  //   },
+  //   touchEnd(index) {
+  //     this.cartTouchEnd(index);
+  //     this.$forceUpdate();
+  //   }
+  //   // 购物车左滑事件
+  //   // touchStart(e, idx) {
+  //   //   this.cartList.forEach(item => {  
+  //   //     if (item.isTouchMove) {
+  //   //       item.isTouchMove = false;
+  //   //     }
+  //   //   });
+  //   //   this.cartList[idx].startx = e.targetTouches[0].clientX;
+  //   //   this.cartList[idx].endx = 0;
+  //   // },
+  //   // touchMove(e, idx) {
+  //   //   this.cartList[idx].endx = e.targetTouches[0].clientX;
+  //   // },
+  //   // touchEnd(idx) {
+  //   //   //结束的坐标点大于开始的坐标点，认为用户已经从左往右滑动了屏幕
+  //   //   if (this.cartList[idx].endx == 0) return;
+  //   //   if (this.cartList[idx].startx > this.cartList[idx].endx) {
+  //   //     this.cartList[idx].isTouchMove = true;
+  //   //   } else {
+  //   //     this.cartList[idx].isTouchMove = false;
+  //   //   }
+  //   //   this.$forceUpdate(); //强制刷新
+  //   // }
+  // }
 };
 </script>
 

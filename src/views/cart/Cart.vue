@@ -28,7 +28,7 @@
 		},
 		computed: {
 			...mapGetters(['cartLength'])
-		}
+		},
 	}
 </script>
 

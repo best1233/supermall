@@ -25,5 +25,7 @@ export default {
 			commit('allSelect', true);
 		}
 		localStorage.setItem('cartList', JSON.stringify(state.cartList));
-	}
+	},
+
+	
 }
