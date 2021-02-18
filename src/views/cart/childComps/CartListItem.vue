@@ -47,14 +47,6 @@ export default {
 		// 	default: false
 		// }
 	}, 
-  watch: {
-    "product.count": {
-      immediate: true,
-      handler(val) {
-        this.$forceUpdate();
-      }
-    }
-  },
 	methods: {
 		...mapMutations(['selectItem','deleteItem','updateProduct']),
 		checkClick() {
