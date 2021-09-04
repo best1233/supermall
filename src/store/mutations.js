@@ -1,5 +1,3 @@
-import Vue from 'vue';
-
 export default {
   // mutations唯一的目的就是修改修改state中的状态
   // mutations中的每个方法尽可能完成的事件比较单一一点
@@ -25,25 +23,21 @@ export default {
 		state.cartList.splice(index,1); // 数组的方法是响应式的
 		localStorage.setItem('cartList', JSON.stringify(state.cartList));
 	},
-
-
 	/**
 	 * cartList中的每一项的count的更新
 	 */
 	updateProduct(state,{ index, value }) {
-		// 注意：根据索引更改不是响应式的
-		// state.cartList[index].count = value;
-		Vue.set(state.cartList[index], 'count', value);
+    state.cartList[index].count = value;
+    // 把state.cartList整个对象变成响应式的
+    state.cartList = [...state.cartList];
 		localStorage.setItem('cartList', JSON.stringify(state.cartList));
 	},
 	/**
-	 * 用来更改全选(checked)的状态 
+	 * 用来更改全选(checked)的状态
 	 */
 	allSelect(state,payload) {
 		state.cartList.forEach(item => item.checked = payload)
 	},
-
-
 	/**
 	 * 购物车滑动删除
 	 */

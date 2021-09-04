@@ -43,7 +43,6 @@ export default {
   watch: {
     number(value) {
       this.$emit("numChange", value);
-      // console.log(value);
     }
   },
   methods: {
@@ -84,7 +83,7 @@ export default {
   display: inline-block;
   width: 180px;
   line-height: 38px;
-  
+
   &.mini {
     width: 70px;
     line-height: 18px;

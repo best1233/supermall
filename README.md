@@ -244,7 +244,7 @@ function debounce(func, delay = 200) {
   ```
 
 * 1. ref如果是绑定在组件中的，那么通过**this.$refs.refname**获取到的是组件对象 
-  2. ref如果是绑定在普通元素中，那么通过**this.$refs.refname**获取到的是组件对象
+  2. ref如果是绑定在普通元素中，那么通过**this.$refs.refname**获取到的是dom元素
 
 * 当我们需要监听一个组件的原生事件时，必须给对应的事件加上.native修饰符，才能进行监听
 

@@ -46,7 +46,7 @@ export default {
 		// 	type:Boolean,
 		// 	default: false
 		// }
-	}, 
+	},
 	methods: {
 		...mapMutations(['selectItem','deleteItem','updateProduct']),
 		checkClick() {
@@ -133,7 +133,7 @@ export default {
   //   transform: translateX(80px);
   //   transition: all 0.4s;
 	// }
-	
+
 	// 	&.touch-move-active .content,
 	// 	&.touch-move-active .del {
 	// 	transform: translateX(0);

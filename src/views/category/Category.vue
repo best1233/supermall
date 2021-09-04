@@ -23,7 +23,7 @@
 
 	import NavBar from 'components/common/navbar/NavBar';
 	import Scroll from 'components/common/scroll/Scroll';
-	import TabControl from 'components/content/tabControl/TabControl'; 
+	import TabControl from 'components/content/tabControl/TabControl';
 	import GoodsList from 'components/content/goods/GoodsList';
 
 	import { getCategory, getSubCategory, getCategoryDetail } from 'services/category';
@@ -63,9 +63,9 @@
 			}
 		},
 		created() {
-			// 1.请求分类数据 
+			// 1.请求分类数据
 			this.getCategory();
-		}, 
+		},
 		deactivated() {
 			this.$bus.$off('itemImageLoad', this.itemImgListener);
 		},
@@ -122,8 +122,8 @@
 				const resp = await getSubCategory(maitKey);
 				// 4.保存子分类的数据,但是当前对象的每一项不是响应式的，只有this.categoryData是响应式的
 				this.categoryData[index].subCategories = resp;
-				// 5.将这个对象展开
-				this.categoryData = { ... this.categoryData }
+				// 5.将这个对象展开, 让当前数据变成响应式的
+				this.categoryData = { ...this.categoryData }
 				// console.log(this.categoryData);
 
 				this.getCategoryDetail(POP);
@@ -148,7 +148,7 @@
 	position: relative;
 	height: 100vh;
 
-	.nav-bar {	
+	.nav-bar {
 		background-color: $bg-tint;
 		color:$text-white;
 	}
@@ -165,6 +165,6 @@
 			height:100%;
 			flex: 1;
 		}
-	}	
+	}
 }
 </style>

@@ -15,17 +15,15 @@ export default {
 		})
 	},
 	/**
-	 * 全选按钮的选中与不选中 
+	 * 全选按钮的选中与不选中
 	 */
 	allSelect({commit, state, getters}) {
 		// 如果cartList的所有项全部选中，那么点击后全部不选中
 		if (getters.isSelectAll) {
-			commit('allSelect', false); 
+			commit('allSelect', false);
 		} else { // 如果cartList的所有项 部分或全部不选中,那么点击后全部选中
 			commit('allSelect', true);
 		}
 		localStorage.setItem('cartList', JSON.stringify(state.cartList));
 	},
-
-	
 }

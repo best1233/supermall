@@ -15,7 +15,7 @@
 import CartListItem from "./CartListItem";
 
 import Scroll from "components/common/scroll/Scroll";
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   name: "CartList",
   components: {
@@ -53,7 +53,7 @@ export default {
   //   }
   //   // 购物车左滑事件
   //   // touchStart(e, idx) {
-  //   //   this.cartList.forEach(item => {  
+  //   //   this.cartList.forEach(item => {
   //   //     if (item.isTouchMove) {
   //   //       item.isTouchMove = false;
   //   //     }
