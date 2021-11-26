@@ -94,7 +94,7 @@
 			 */
 			async getCategory() {
 				// 1. 获取分类数据
-				let resp = await getCategory();
+				const resp = await getCategory();
 				// console.log(resp);
 				this.categories = resp;
 

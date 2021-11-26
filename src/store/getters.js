@@ -34,7 +34,7 @@ export default {
   // 2.使用find
 
   // 3.普通遍历
-  // for(let item of this.cartList) {
+  // for(const item of this.cartList) {
   //   if(!item.checked) {
   //     return false;
   //   }

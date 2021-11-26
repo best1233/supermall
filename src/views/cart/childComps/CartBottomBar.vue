@@ -60,6 +60,8 @@
     top: 13px;
 	}
 	.total-price {
+    @include text-ellipsis;
+    max-width: 127px;
 		margin-left: 15px;
     font-size: 16px;
 		color: $text-666;

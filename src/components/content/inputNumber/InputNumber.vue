@@ -1,9 +1,9 @@
 <template>
   <div class="input-number large" :class="size">
     <span class="decrease" @click="decrease">-</span>
-    <span class="increase" @click="increase" :class="{disabled: this.number === this.maxNum}">+</span>
+    <span class="increase" @click="increase" :class="{ disabled: this.number === this.maxNum }">+</span>
     <div class="input">
-      <input type="text" v-model="number" @change="formatNumber" />
+      <input type="text" v-model="number" @input="handleNumber" @change="formatNumber" />
     </div>
   </div>
 </template>
@@ -22,16 +22,13 @@ export default {
     },
     counter: {
       type:Number,
-      default: 0
+      default: 1
     },
     size: {
       type: String,
       default: 'mini',
       validator(val) {
-        if (val === 'medium' || val === 'small') {
-          console.error('[inputNumber warn]: size的值暂时还不支持medium、small~');
-        }
-        return ['large', 'medium','small', 'mini'].includes(val);
+        return ['large', 'mini'].includes(val);
       }
     }
   },
@@ -54,22 +51,29 @@ export default {
 		},
 		decrease() {
       if (this.number <= this.minNum) {
-        this.$emit('deleteItem');
-        console.log('你确定要删除吗?');
+        this.$emit('deeItem');
         return;
 			}
       this.number--;
 		},
+    // 输入框输入数字时，修改它的类型
+    handleNumber() {
+      this.number = +this.number;
+    },
     formatNumber() {
-      let formatNum;
-      if (typeof this.number === "string") {
-        formatNum = Number(this.number.replace(/\D/g, ""));
+      let formatNum = 0;
+      if (isNaN(this.number)) {
+        formatNum = this.minNum;
       } else {
         formatNum = Number(this.number);
       }
       // 最大限制
       if (formatNum >= this.maxNum) {
         formatNum = this.maxNum;
+      }
+      // 最小限制
+      if (formatNum <= this.minNum) {
+        formatNum = this.minNum;
       }
       this.number = formatNum;
     }
